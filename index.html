@@ -324,23 +324,6 @@
             opacity: 1;
         }
 
-        /* .control-btn {
-            background: #c8ff00;
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .control-btn:hover {
-            background: #fff;
-            transform: scale(1.05);
-        } */
-
         .slide-counter {
             position: fixed;
             bottom: 30px;
@@ -487,7 +470,28 @@
             z-index: 999;
             border: 2px solid #c8ff00;
         }
+        
+        /* ADDED: Styles for text-based formulas */
+        .formula-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1em;
+            color: #c8ff00;
+            background: #111;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            display: block;
+            text-align: center;
+        }
 
+        .formula-inline-text {
+            font-family: 'Courier New', Courier, monospace;
+            color: #c8ff00;
+            background: #222;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
         @media print {
             .controls, .slide-counter, .click-indicator {
                 display: none;
@@ -497,7 +501,6 @@
 </head>
 <body>
     <div class="presentation">
-        <!-- Slide 1: Title -->
         <div class="slide active fade-in">
             <div class="slide-header animate"></div>
             <div class="content-single" style="text-align: center;">
@@ -512,7 +515,6 @@
             </div>
         </div>
 
-        <!-- Slide 2: Understanding Logistic Regression -->
         <div class="slide">
             <h2 class="animate">Understanding Logistic Regression</h2>
             <h3 class="animate">Basic Concepts and How the Model Works</h3>
@@ -525,7 +527,7 @@
                 <div class="flow-arrow animate">→</div>
                 <div class="flow-box animate">
                     <div style="font-weight: bold; font-size: 1.2em;">Linear Combination</div>
-                    <div style="color: #999; margin-top: 5px;">(Log-Odds)</div>
+                    <div style="color: #999; margin-top: 5px; font-size: 0.9em;">z = β0 + β1*X1 + ... + βn*Xn</div>
                 </div>
                 <div class="flow-arrow animate">→</div>
                 <div class="flow-box animate">
@@ -553,9 +555,9 @@
 
                 <div class="info-box animate">
                     <h4>Sigmoid Function</h4>
-                    <div style="text-align: center; margin: 30px 0;">
-                        <div style="font-size: 1.5em; color: #c8ff00; margin-bottom: 20px;">
-                            S(z) = 1 / (1 + e<sup>-z</sup>)
+                    <div style="text-align: center; margin: 20px 0 10px 0;">
+                        <div class="formula-text" style="font-size: 1.3em;">
+                            P(Y=1) = σ(z) = 1 / (1 + e^(-z))
                         </div>
                         <svg width="100%" height="250" viewBox="0 0 400 250">
                             <line x1="40" y1="200" x2="360" y2="200" stroke="#666" stroke-width="2"/>
@@ -573,7 +575,6 @@
             </div>
         </div>
 
-        <!-- Slide 3: Extending to Multinomial -->
         <div class="slide">
             <h2 class="animate">2. Extending to Multinomial Logistic Regression</h2>
             <h3 class="animate">An extension for handling multiple outcome categories</h3>
@@ -620,7 +621,6 @@
             </div>
         </div>
 
-        <!-- Slide 4: The Underlying Model -->
         <div class="slide">
             <h2 class="animate">The Basic Model: Log-Odds Ratio</h2>
             <h3 class="animate">Understanding how Multinomial Logistic Regression works</h3>
@@ -635,11 +635,17 @@
                     <div class="info-box animate" style="margin-bottom: 20px;">
                         <h4>Finding the Best Values</h4>
                         <p style="font-size: 1.2em; line-height: 1.6;">For K categories, it calculates K-1 sets of values, each predicting the log-odds versus the reference.</p>
+                        <div class="formula-text" style="font-size: 1.1em; margin-top: 15px;">
+                            ln(P(k) / P(ref)) = zk = βk * X
+                        </div>
                     </div>
 
                     <div class="info-box animate">
                         <h4>Calculating Probabilities</h4>
                         <p style="font-size: 1.2em; line-height: 1.6;">The softmax function converts these log-odds into probabilities that add up to 1 for all categories.</p>
+                        <div class="formula-text" style="font-size: 1.1em; margin-top: 15px;">
+                            P(k) = e^(zk) / Σ(e^(zj))
+                        </div>
                     </div>
                 </div>
 
@@ -653,18 +659,21 @@
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%;">
                             <div class="flow-box animate">
                                 <div style="font-size: 1.1em;">Log-Odds (Cat A vs Cat C)</div>
+                                <div style="color: #999; font-size: 0.9em; margin-top: 5px;">zA = βA * X</div>
                             </div>
                             <div class="flow-box animate">
                                 <div style="font-size: 1.1em;">Log-Odds (Cat B vs Cat C)</div>
+                                <div style="color: #999; font-size: 0.9em; margin-top: 5px;">zB = βB * X</div>
                             </div>
                         </div>
                         <div class="flow-box highlight animate" style="width: 80%; margin-top: 10px;">
                             <div style="font-weight: bold; font-size: 1.2em; margin-bottom: 10px;">Reference: Cat C</div>
+                             <div style="color: #000; font-size: 0.9em;">(z_ref = 0)</div>
                         </div>
                         <div style="font-size: 2em; color: #666;" class="animate">↓</div>
                         <div class="flow-box highlight animate" style="width: 80%;">
                             <div style="font-weight: bold; font-size: 1.2em;">Softmax Function</div>
-                            <div style="color: #000; margin-top: 5px;">(Normalization)</div>
+                            <div style="color: #000; margin-top: 5px; font-size: 0.9em;">Pk = e^(zk) / (e^(zA) + e^(zB) + e^(z_ref))</div>
                         </div>
                         <div style="font-size: 2em; color: #666;" class="animate">↓</div>
                         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; width: 100%;">
@@ -683,7 +692,6 @@
             </div>
         </div>
 
-        <!-- Slide 5: Key Assumptions -->
         <div class="slide">
             <h2 class="animate">Key Assumptions and Considerations</h2>
             <h3 class="animate">Important rules for building reliable multinomial logistic regression models</h3>
@@ -693,16 +701,22 @@
                     <div class="info-box animate" style="margin-bottom: 25px;">
                         <h4>Independence of Irrelevant Alternatives (IIA)</h4>
                         <p style="font-size: 1.2em; line-height: 1.6;">This important assumption states that the ratio of probabilities for any two outcomes stays the same regardless of other options available.</p>
+                        <div class="formula-text" style="font-size: 1.2em; margin-top: 10px;">
+                            P(A) / P(B) is independent of C
+                        </div>
                     </div>
 
                     <div class="info-box animate" style="margin-bottom: 25px;">
                         <h4>Linear Relationship</h4>
                         <p style="font-size: 1.2em; line-height: 1.6;">Input variables should have a straight-line relationship with the log-odds of the outcome.</p>
+                        <div class="formula-text" style="margin-top: 10px; text-align: center; font-size: 1.1em; line-height: 1.5;">
+                            zk = ln(Pk / P_ref) <br> = βk_0 + βk_1*X1 + ...
+                        </div>
                     </div>
 
                     <div class="info-box animate" style="margin-bottom: 25px;">
                         <h4>No High Correlation Between Inputs</h4>
-                        <p style="font-size: 1.2em; line-height: 1.6;">Input variables should not be strongly connected to each other.</p>
+                        <p style="font-size: 1.2em; line-height: 1.6;">Input variables should not be strongly connected to each other (no multicollinearity).</p>
                     </div>
 
                     <div class="info-box animate">
@@ -755,7 +769,6 @@
             </div>
         </div>
 
-        <!-- Slide 6: Data Preparation -->
         <div class="slide">
             <h2 class="animate">5. Data Preparation for Implementation</h2>
             <h3 class="animate">Important steps to prepare a dataset for modeling</h3>
@@ -828,7 +841,6 @@
             </div>
         </div>
 
-        <!-- Slide 7: Model Training -->
         <div class="slide">
             <h2 class="animate">6. Model Training and Optimization</h2>
             <h3 class="animate">Key concepts in fitting a model to data</h3>
@@ -838,6 +850,9 @@
                     <div class="info-box animate" style="margin-bottom: 25px;">
                         <h4>Maximum Likelihood Estimation (MLE)</h4>
                         <p style="font-size: 1.2em; line-height: 1.6;">Finds the best values by maximizing the chance of seeing the actual data given the model settings.</p>
+                        <div class="formula-text" style="font-size: 1.1em; margin: 10px 0;">
+                            L(β) = Π P(y_i | x_i; β)
+                        </div>
                     </div>
 
                     <div class="info-box animate" style="margin-bottom: 25px;">
@@ -848,6 +863,8 @@
                     <div class="info-box animate" style="margin-bottom: 25px;">
                         <h4>Regularization (L1/L2)</h4>
                         <p style="font-size: 1.2em; line-height: 1.6;">Methods used to prevent overfitting when there are many features.</p>
+                        <div style="font-size: 1.1em; color: #ccc; margin-top: 10px;">L1 (Lasso): <span class="formula-inline-text">λ * Σ|βj|</span></div>
+                        <div style="font-size: 1.1em; color: #ccc; margin-top: 5px;">L2 (Ridge): <span class="formula-inline-text">λ * Σ(βj^2)</span></div>
                     </div>
 
                     <div class="info-box animate" style="margin-bottom: 25px;">
@@ -864,7 +881,7 @@
                 <div>
                     <h4 class="animate" style="color: #c8ff00; text-align: center; margin-bottom: 20px; font-size: 1.8em;">Maximum Likelihood Estimation (MLE)</h4>
                     <div class="animate" style="background: #1a1a1a; padding: 40px; border-radius: 8px; text-align: center;">
-                        <div style="font-size: 1.3em; margin-bottom: 30px; color: #ccc;">Likelihood Function L(θ|Data)</div>
+                        <div style="font-size: 1.3em; margin-bottom: 30px; color: #ccc;">Likelihood Function L(θ | Data)</div>
                         <svg width="100%" height="300" viewBox="0 0 500 300">
                             <line x1="50" y1="250" x2="450" y2="250" stroke="#666" stroke-width="2"/>
                             <line x1="50" y1="250" x2="50" y2="30" stroke="#666" stroke-width="2"/>
@@ -886,7 +903,6 @@
             </div>
         </div>
 
-        <!-- Slide 8: Interpreting Coefficients -->
         <div class="slide">
             <h2 class="animate">Interpreting Model Coefficients</h2>
             <h3 class="animate">Understanding Odds Ratios in Logistic Regression</h3>
@@ -895,9 +911,9 @@
                 <div class="info-box animate">
                     <h4>Key Concepts</h4>
                     <ul>
-                        <li class="animate"><strong>Odds Ratios:</strong> Coefficients represent log-odds. Converting them (exp(β)) gives the odds ratio for easier understanding.</li>
-                        <li class="animate"><strong>Positive Coefficient (β > 0):</strong> Odds ratio is greater than 1. Shows an increased chance of the outcome.</li>
-                        <li class="animate"><strong>Negative Coefficient (β < 0):</strong> Odds ratio is less than 1. Shows a decreased chance of the outcome.</li>
+                        <li class="animate"><strong>Odds Ratios:</strong> Coeffs are log-odds: <span class="formula-inline-text">ln(Odds) = β*X</span>. The Odds Ratio is <span class="formula-inline-text">e^(β)</span>.</li>
+                        <li class="animate"><strong>Positive Coefficient (<span class="formula-inline-text">β > 0</span>):</strong> Odds ratio is greater than 1. Shows an increased chance of the outcome.</li>
+                        <li class="animate"><strong>Negative Coefficient (<span class="formula-inline-text">β < 0</span>):</strong> Odds ratio is less than 1. Shows a decreased chance of the outcome.</li>
                         <li class="animate"><strong>Reference Category:</strong> Understanding is always relative to a baseline or reference category.</li>
                     </ul>
                 </div>
@@ -909,7 +925,7 @@
                             <tr>
                                 <th>Predictor</th>
                                 <th>Coefficient (β)</th>
-                                <th>Odds Ratio (exp(β))</th>
+                                <th>Odds Ratio (e^β)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -949,7 +965,6 @@
             </div>
         </div>
 
-        <!-- Slide 9: Model Evaluation -->
         <div class="slide">
             <h2 class="animate">8. Model Evaluation Metrics</h2>
             <h3 class="animate">Key measures for checking machine learning model performance</h3>
@@ -959,11 +974,16 @@
                     <div class="info-box animate" style="margin-bottom: 25px;">
                         <h4 style="color: #c8ff00;">Accuracy</h4>
                         <p style="font-size: 1.2em; line-height: 1.6;">The percentage of correctly predicted instances, a common but sometimes misleading measure.</p>
+                        <div class="formula-text" style="font-size: 1.1em; margin: 10px 0;">
+                            Correct Predictions / Total Predictions
+                        </div>
                     </div>
 
                     <div class="info-box animate" style="margin-bottom: 25px;">
                         <h4 style="color: #c8ff00;">Precision, Recall, F1-Score</h4>
                         <p style="font-size: 1.2em; line-height: 1.6;">Provide a more detailed view of performance, especially for multi-class problems.</p>
+                        <div style="font-size: 1.1em; color: #ccc; margin-top: 10px;">Precision: <span class="formula-inline-text">TP / (TP + FP)</span></div>
+                        <div style="font-size: 1.1em; color: #ccc; margin-top: 5px;">Recall: <span class="formula-inline-text">TP / (TP + FN)</span></div>
                     </div>
 
                     <div class="info-box animate" style="margin-bottom: 25px;">
@@ -974,6 +994,9 @@
                     <div class="info-box animate">
                         <h4 style="color: #c8ff00;">Log-Loss (Cross-Entropy Loss)</h4>
                         <p style="font-size: 1.2em; line-height: 1.6;">Measures performance where the prediction is a probability value between 0 and 1.</p>
+                        <div class="formula-text" style="font-size: 1.1em; margin: 10px 0;">
+                            -1/N * Σ(i) Σ(k) [y_ik * log(p_ik)]
+                        </div>
                     </div>
                 </div>
 
@@ -1010,7 +1033,6 @@
             </div>
         </div>
 
-        <!-- Slide 10: Practical Application -->
         <div class="slide">
             <h2 class="animate">Practical Application: Case Study Example</h2>
             <h3 class="animate">Predicting Customer Choice in Telecommunications</h3>
@@ -1074,7 +1096,6 @@
             </div>
         </div>
 
-        <!-- Slide 11: Advantages -->
         <div class="slide">
             <h2 class="animate">10. Multinomial Logistic Regression</h2>
             <h3 class="animate">Key Benefits of the Statistical Model</h3>
@@ -1132,7 +1153,6 @@
             </div>
         </div>
 
-        <!-- Slide 12: Limitations -->
         <div class="slide">
             <h2 class="animate">Limitations and Alternatives</h2>
             <h3 class="animate">Understanding Model Constraints and Exploring Other Options</h3>
@@ -1201,7 +1221,7 @@
                                 <circle class="data-point" cx="300" cy="160" r="8" fill="#7cb300"/>
                                 <circle class="data-point" cx="280" cy="120" r="8" fill="#7cb300"/>
                                 <circle class="data-point" cx="320" cy="170" r="8" fill="#7cb300"/>
-                                <circle class="data-point" cx="270" cy="150" r="8" fill="#7cb300"/>
+                                <circle class="data-point" cx="270" cy="150" r="8" fill="#7cb3m300"/>
                                 <circle class="data-point" cx="340" cy="130" r="8" fill="#7cb300"/>
                             </svg>
                         </div>
@@ -1210,7 +1230,6 @@
             </div>
         </div>
 
-        <!-- Slide 13: Conclusion -->
         <div class="slide">
             <h2 class="animate">Conclusion and Future Directions</h2>
             <h3 class="animate">Summary and Outlook for Multinomial Logistic Regression</h3>
@@ -1422,8 +1441,6 @@
 
         animateSlideElements();
     </script>
+    
 </body>
-
 </html>
-
-just add Formulas where they are required because the Formulas are kay 
