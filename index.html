@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multinomial Logistic Regression - Animated</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-sN1MATC9L/nFFrSgeOldfG/l2rL2nGcSHhtF/sJJv9LpUvbt3N31tGTE999N8/ga" crossorigin="anonymous">
+
     <style>
         * {
             margin: 0;
@@ -490,7 +491,7 @@
             border: 2px solid #c8ff00;
         }
         
-        /* ADDED: Styles for formulas */
+        /* Styles for formulas */
         .formula {
             font-size: 1.4em;
             color: #c8ff00;
@@ -1272,7 +1273,7 @@
                             <circle cx="450" cy="70" r="30" fill="#1e5a8e" stroke="#fff" stroke-width="3"/>
                             <text x="450" y="80" fill="#fff" font-size="16" text-anchor="middle" font-weight="bold">FUTURE</text>
                             <text x="100" y="110" fill="#000" font-size="14" font-weight="bold">POINT</text>
-                            <text x="530" y="100" fill="#000" font-size="14" font-weight="bold">POINT</text>
+                            <text x="530" y="100" fill="#000" font-size="14" font-weight="bold">POINT</D>
                         </svg>
                     </div>
                     <ul>
@@ -1453,7 +1454,24 @@
 
         animateSlideElements();
     </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoebJ1LAAveMvS8MSrfMyM+5qNKVb5McD/wVwUsRjKjE6vGTEePUeTOgBTRP1/x" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaD4hLwHpJUPjHZEephJ4RxQG+goU8TMoFjeKzNTGjyGjCq/zQ/tN1" crossorigin="anonymous"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                // ...options...
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                    {left: '\\[', right: '\\]', display: true},
+                    {left: '\\(', right: '\\)', display: false}
+                ],
+                // This is important for performance!
+                throwOnError : false
+            });
+        });
+    </script>
 </body>
-
 </html>
-
